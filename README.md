@@ -2,6 +2,48 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.2.
 
+## Repository Link
+
+[Spring boot Project Repository](https://github.com/AndresFelipeO/Arquitectura-Hexagonal-Spring-Boot)
+
+## architecture
+src/
+│
+├── app/
+│   ├── core/
+│   │   ├── services/
+│   │   ├── interceptors/
+│   │   └── core.module.ts
+│   │
+│   ├── shared/
+│   │   ├── components/
+│   │   ├── directives/
+│   │   ├── pipes/
+│   │   ├── models/
+│   │   │   ├── user.dto.ts
+│   │   │   ├── docente.dto.ts
+│   │   │   └── ...
+│   │   └── shared.module.ts
+│   │
+│   ├── features/
+│   │   ├── gestionar-docente/
+│   │   │   ├── components/
+│   │   │   │   ├── docente-list/
+│   │   │   │   │   ├── docente-list.component.ts
+│   │   │   │   │   ├── docente-list.component.html
+│   │   │   │   │   └── docente-list.component.scss
+│   │   │   │   └── ...
+│   │   │   └── ...
+│   │   │
+│   │   └── ...
+│   │
+│   ├── app-routing.module.ts
+│   ├── app.component.ts
+│   └── app.module.ts
+│
+└── assets/
+    └── ...
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
@@ -25,3 +67,4 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
