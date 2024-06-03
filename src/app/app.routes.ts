@@ -1,3 +1,14 @@
 import { Routes } from '@angular/router';
+import path from 'path';
+import { MenuAppComponent } from './feactures/menu-app/menu-app.component';
+import { GestionarDocenteComponent } from './feactures/gestionar-docente/gestionar-docente.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+    {path: '', redirectTo: '/menu', pathMatch: 'full'},
+    {path:'menu', component:MenuAppComponent},
+    {path:'gestionarDocente',component:GestionarDocenteComponent}
+];
+
+
+
+

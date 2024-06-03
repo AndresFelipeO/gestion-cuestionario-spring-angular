@@ -1,0 +1,172 @@
+<div class="container text-center p-3">
+    <h3 class="fw-bold font-monospace">Sistema De Docente Unicauca</h3>
+    <div class="col p-3">
+        <h4 class="fw-semibold">Registro docente</h4>
+        <form #DocenteForm="ngForm" class="container py-2">
+            <div class="form-group row p-2">
+                <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="docente.nombres" name="nombre" required minlength="4" #nombre="ngModel">
+                    @if (nombre.invalid && (nombre.dirty || nombre.touched)) {
+                        <div class="alert alert-danger">
+                            @if (nombre.errors?.['required']) {
+                                <div >nombre es requerido</div>
+                                
+                            }@else if (nombre.errors?.['minlength']) {
+                                <div> nombre debe tener al menos 4 caracteres</div>
+                            }
+                            
+                        </div>
+                    }
+                    
+                </div>
+            </div>
+            <div class="form-group row  p-2">
+                <label for="apellido" class="col-form-label col-sm-2">Apellido</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="docente.apellidos" name="apellido" required minlength="4" #apellido="ngModel">
+                    @if (apellido.invalid && (apellido.dirty || apellido.touched)) {
+                        <div class="alert alert-danger">
+                            @if (apellido.errors?.['required']) {
+                                <div >apellido es requerido</div>
+                                
+                            }@else if (apellido.errors?.['minlength']) {
+                                <div> apellido debe tener al menos 4 caracteres</div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="form-group row  p-2">
+                <label for="email" class="col-form-label col-sm-2">Correo</label>
+                <div class="col-sm-6">
+                    <input type="email" class="form-control" [(ngModel)]="docente.correo" name="email" required email #email="ngModel">
+                    @if (email.invalid && (email.dirty || email.touched)) {
+                        <div class="alert alert-danger">
+                            @if (email.errors?.['required']) {
+                                <div >email es requerido</div>
+                                
+                            }@else if (email.errors?.['email']) {
+                                <div> email debe tener el formato</div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="form-group row  p-2" >
+                <label for="text" class="col-form-label col-sm-2">tipo identificación</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="docente.tipoIdentificacion" name="Tidentificacion" required minlength="4" #Tidentificacion="ngModel">
+                    @if (Tidentificacion.invalid && (Tidentificacion.dirty || Tidentificacion.touched)) {
+                        <div class="alert alert-danger">
+                            @if (Tidentificacion.errors?.['required']) {
+                                <div >Tidentificacion es requerido</div>
+                                
+                            }@else if (Tidentificacion.errors?.['minlength']) {
+                                <div> Tidentificacion debe tener al menos 4 caracteres</div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="form-group row  p-2" >
+                <label for="text" class="col-form-label col-sm-2">identificación</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="docente.numeroIdentificacion" name="identificacion" required minlength="4" #identificacion="ngModel">
+                    @if (identificacion.invalid && (identificacion.dirty || identificacion.touched)) {
+                        <div class="alert alert-danger">
+                            @if (identificacion.errors?.['required']) {
+                                <div >identificacion es requerido</div>
+                                
+                            }@else if (identificacion.errors?.['minlength']) {
+                                <div> identificacion debe tener al menos 4 caracteres</div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="form-group row  p-2">
+                <label for="text" class="col-form-label col-sm-2">vinculación</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="docente.vinculacion" name="vinculación" required minlength="4" #vinculacion="ngModel">
+                    @if (vinculacion.invalid && (vinculacion.dirty || vinculacion.touched)) {
+                        <div class="alert alert-danger">
+                            @if (vinculacion.errors?.['required']) {
+                                <div >vinculacion es requerido</div>
+                                
+                            }@else if (vinculacion.errors?.['minlength']) {
+                                <div> vinculacion debe tener al menos 4 caracteres</div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="form-group row  p-2">
+                <label for="numero" class="col-form-label col-sm-2">Departamento</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control" [(ngModel)]="docente.departamentoEntities[0].idDepartamento " name="Departamento" required minlength="1"  #Departamento="ngModel">
+                    @if (Departamento.invalid && (Departamento.dirty || Departamento.touched)) {
+                        <div class="alert alert-danger">
+                            @if (Departamento.errors?.['required']) {
+                                <div >Departamento es requerido</div>
+                                
+                            }@else if (email.errors?.['minlength']) {
+                                <div> Departamento debe tener al menos 1 caracteres</div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="form-group row  p-2">
+                <label for="text" class="col-form-label col-sm-2">Telefono</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="docente.objTelefonoEntity.numero" name="Telefono" required minlength="10" #Telefono="ngModel">
+                    @if (Telefono.invalid && (Telefono.dirty || Telefono.touched)) {
+                        <div class="alert alert-danger">
+                            @if (Telefono.errors?.['required']) {
+                                <div >Telefono es requerido</div>
+                                
+                            }@else if (Telefono.errors?.['minlength']) {
+                                <div>Telefono debe tener al menos 10 caracteres</div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="form-group row p-2">
+                <label for="text" class="col-form-label col-sm-2">Tipo telefono</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="docente.objTelefonoEntity.tipoTelefono" name="Tipo" required minlength="4" #Tipo="ngModel">
+                    @if (email.invalid && (email.dirty || email.touched)) {
+                        <div class="alert alert-danger">
+                            @if (email.errors?.['required']) {
+                                <div >email es requerido</div>
+                                
+                            }@else if (email.errors?.['minlength']) {
+                                <div> apellido debe tener al menos 4 caracteres</div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="form-group row p-2">
+                <div class="col-sm-6">
+                        <button class="btn btn-primary" role="button" (click)='crearDocente()'>Crear</button>
+                    <!-- <button class="btn btn-primary" role="button" (click)='crearCliente()'
+                    *ngIf="!cliente.id else elseBlock" [disabled]="!DocenteForm.form.valid">Crear</button> -->
+                </div>
+            </div>
+        </form>
+        
+    </div>
+    @if (errores.length>0) {
+    <ul class="alert alert-danger">
+        @for (err of errores; track $index) {
+        <li>{{err}}</li>
+        }
+    </ul>
+    }
+   
+
+
+</div>
