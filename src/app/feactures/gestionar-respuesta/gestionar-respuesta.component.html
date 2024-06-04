@@ -1,0 +1,186 @@
+<div class="container text-center p-3">
+    <h3 class="fw-bold font-monospace">Sistema De Respuesta Unicauca</h3>
+    <div class="row">
+        <div class="col p-3">
+            <h4 class="fw-semibold">Buscar Cuestionarios de Docentes</h4>
+            <form #DocenteForm="ngForm" class="container py-2">
+                <div class="form-group row p-2">
+                    <label for="id" class="col-form-label col-sm-2">id Docente</label>
+                    <div class="col-sm-6">
+                        <input type="number" class="form-control" [(ngModel)]="id" name="id"
+                            required minlength="1" #idd="ngModel">
+                        @if (idd.invalid && (idd.dirty || idd.touched)) {
+                        <div class="alert alert-danger">
+                            @if (idd.errors?.['required']) {
+                            <div>id es requerido</div>
+
+                            }@else if (idd.errors?.['minlength']) {
+                            <div> El id debe tener al menos 1 caracteres</div>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="form-group row p-2">
+                    <div class="col-sm-6">
+                        <button class="btn btn-primary" role="button" (click)='getDocenteCuestionario()'>Buscar</button>
+
+                    </div>
+                </div>
+            </form>
+
+            @if (docente) {
+           
+            <div class="card">
+                <h5>Informacion Docente</h5>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>tipoIdentificacion</th>
+                            <th>numeroIdentificacion</th>
+                            <th>nombres</th>
+                            <th>apellidos</th>
+                            <th>correo</th>
+                            <th>vinculacion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{docente.tipoIdentificacion}}</td>
+                            <td>{{docente.numeroIdentificacion}}</td>
+                            <td>{{docente.nombres}}</td>
+                            <td>{{docente.apellidos}}</td>
+                            <td>{{docente.correo}}</td>
+                            <td>{{docente.vinculacion}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h6 class="p-3">Respuesta</h6>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Respuesta</th>
+                            <th>enunciado pregunta</th>
+                            <th>Tipo pregunta</th>
+                            <th>descripcion</th>
+                            <th>titulo cuestionario</th>
+                            <th>descripcion cuestionario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (resp of docente.respuestaEntities; track $index) {
+                        <tr>
+                            <td>{{resp.descripcion}}</td>
+                            <td>{{resp.objPreguntaEntity.enunciado}}</td>
+                            <td>{{resp.objPreguntaEntity.objTipoPreguntaEntity.nombre}}</td>
+                            <td>{{resp.objPreguntaEntity.objTipoPreguntaEntity.descripcion}}</td>
+                            <td>{{resp.objPreguntaEntity.objCuestionarioEntity.titulo}}</td>
+                            <td>{{resp.objPreguntaEntity.objCuestionarioEntity.descripcion}}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <dir></dir>
+            }
+            @else {
+            <h5>No hay registros</h5>
+            }
+            @if (erroresBuscar.length>0) {
+                <ul class="alert alert-danger">
+                    @for (err of erroresBuscar; track $index) {
+                    <li>{{err}}</li>
+                    }
+                </ul>
+                }
+        </div>
+        <div class="col p-3">
+            <h4 class="fw-semibold">Registrar Respuestas</h4>
+             <form #DocenteForm="ngForm" class="container py-2">
+                <div class="form-group row p-2">
+                    <label for="cuestionario" class="col-form-label col-sm-2">cuestionario ID</label>
+                    <div class="col-sm-6">
+                        <input type="number" class="form-control" [(ngModel)]="peticion.cuestionarioDTO.idCuestionario" name="cuestionario"
+                            required minlength="1" #cuestionario="ngModel">
+                        @if (cuestionario.invalid && (cuestionario.dirty || cuestionario.touched)) {
+                        <div class="alert alert-danger">
+                            @if (cuestionario.errors?.['required']) {
+                            <div>id es requerido</div>
+
+                            }@else if (cuestionario.errors?.['minlength']) {
+                            <div> El id debe tener al menos 1 caracteres</div>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="form-group row  p-2">
+                    <label for="Docente" class="col-form-label col-sm-2">Docente ID</label>
+                    <div class="col-sm-6">
+                        <input type="number" class="form-control" [(ngModel)]="peticion.docenteDTO.idpersona"
+                            name="Docente" required minlength="1" #Docente="ngModel">
+                        @if (Docente.invalid && (Docente.dirty || Docente.touched)) {
+                        <div class="alert alert-danger">
+                            @if (Docente.errors?.['required']) {
+                            <div>id es requerido</div>
+
+                            }@else if (Docente.errors?.['minlength']) {
+                            <div> La id debe tener al menos 1 caracteres</div>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="form-group row  p-2">
+                    <label for="pregunta" class="col-form-label col-sm-2">Pregunta ID</label>
+                    <div class="col-sm-6">
+                        <input type="number" class="form-control" [(ngModel)]="peticion.preguntaDTO.idpregunta" name="pregunta"
+                            required minlength="1" #pregunta="ngModel">
+                        @if (pregunta.invalid && (pregunta.dirty || pregunta.touched)) {
+                        <div class="alert alert-danger">
+                            @if (pregunta.errors?.['required']) {
+                            <div>el id es requerido</div>
+
+                            }@else if (pregunta.errors?.['minlength']) {
+                            <div> el id debe tener al menos 1 caracteres</div>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="form-group row  p-2">
+                    <label for="respuesta" class="col-form-label col-sm-2">Respuesta</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control"
+                            [(ngModel)]="peticion.preguntaDTO.respuestaEntities[0].descripcion" name="respuesta" required
+                            minlength="5" #respuesta="ngModel">
+                        @if (respuesta.invalid && (respuesta.dirty || respuesta.touched)) {
+                        <div class="alert alert-danger">
+                            @if (respuesta.errors?.['required']) {
+                            <div>respuesta es requerido</div>
+                            }@else if (respuesta.errors?.['minlength']) {
+                            <div> la respuesta debe tener al menos 5 caracteres</div>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+
+
+                <div class="form-group row p-2">
+                    <div class="col-sm-6">
+                        <button class="btn btn-primary" role="button" (click)='postRegistrarPregunta()'>Crear</button>
+
+                    </div>
+                </div>
+            </form> 
+            @if (errores.length>0) {
+            <ul class="alert alert-danger">
+                @for (err of errores; track $index) {
+                <li>{{err}}</li>
+                }
+            </ul>
+            }
+        </div>
+    </div>
+</div>
