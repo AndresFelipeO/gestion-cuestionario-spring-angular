@@ -1,0 +1,145 @@
+<div class="container text-center p-3">
+    <h3 class="fw-bold font-monospace">Sistema De Cuestionarios Unicauca</h3>
+    <div class="row">
+        <div class="col p-3">
+            <h4 class="fw-semibold">Cuestionarios Registrados</h4>
+            @if (cuestionario.length>0) {
+            @for (cuest of cuestionario; track $index) {
+            <div class="card">
+                <h5>Cuestionario {{$index}}</h5>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Titulo</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{cuest.idCuestionario}}</td>
+                            <td>{{cuest.titulo}}</td>
+                            <td>{{cuest.descripcion}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h6 class="p-3">Preguntas</h6>
+                <table class="table table-striped table-bordered">
+
+                    <thead>
+                        <tr>
+                            <th>idpregunta</th>
+                            <th>enunciado</th>
+                            <th>tipo de pregunta</th>
+                            <th>descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (pregunt of cuest.preguntaEntities; track $index) {
+                        <tr>
+                            <td>{{pregunt.idpregunta}}</td>
+                            <td>{{pregunt.enunciado}}</td>
+                            <td>{{pregunt.objTipoPreguntaEntity.nombre}}</td>
+                            <td>{{pregunt.objTipoPreguntaEntity.descripcion}}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <dir></dir>
+            }
+            }
+            @else if (cuestionario.length==0) {
+            <h5>No hay registros</h5>
+            }
+        </div>
+        <div class="col p-3">
+            <h4 class="fw-semibold">Registrar Cuestionario</h4>
+            <form #DocenteForm="ngForm" class="container py-2">
+                <div class="form-group row p-2">
+                    <label for="nombre" class="col-form-label col-sm-2">Titulo</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" [(ngModel)]="objCuestionario.titulo" name="titulo"
+                            required minlength="4" #titulo="ngModel">
+                        @if (titulo.invalid && (titulo.dirty || titulo.touched)) {
+                        <div class="alert alert-danger">
+                            @if (titulo.errors?.['required']) {
+                            <div>nombre es requerido</div>
+
+                            }@else if (titulo.errors?.['minlength']) {
+                            <div> El titulo debe tener al menos 4 caracteres</div>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="form-group row  p-2">
+                    <label for="apellido" class="col-form-label col-sm-2">descripcion</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" [(ngModel)]="objCuestionario.descripcion"
+                            name="descripcion" required minlength="4" #descripcion="ngModel">
+                        @if (descripcion.invalid && (descripcion.dirty || descripcion.touched)) {
+                        <div class="alert alert-danger">
+                            @if (descripcion.errors?.['required']) {
+                            <div>descripcion es requerido</div>
+
+                            }@else if (descripcion.errors?.['minlength']) {
+                            <div> La descripcion debe tener al menos 4 caracteres</div>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="form-group row  p-2">
+                    <label for="text" class="col-form-label col-sm-2">enunciado</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" [(ngModel)]="objPregunta.enunciado" name="enunciado"
+                            required minlength="4" #enunciado="ngModel">
+                        @if (enunciado.invalid && (enunciado.dirty || enunciado.touched)) {
+                        <div class="alert alert-danger">
+                            @if (enunciado.errors?.['required']) {
+                            <div>el enunciado es requerido</div>
+
+                            }@else if (enunciado.errors?.['minlength']) {
+                            <div> el enunciado debe tener al menos 4 caracteres</div>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="form-group row  p-2">
+                    <label for="number" class="col-form-label col-sm-2">Tipo Pregunta</label>
+                    <div class="col-sm-6">
+                        <input type="number" class="form-control"
+                            [(ngModel)]="objPregunta.objTipoPreguntaEntity.idtipPregunta" name="idtipPregunta" required
+                            minlength="4" #idtipPregunta="ngModel">
+                        @if (idtipPregunta.invalid && (idtipPregunta.dirty || idtipPregunta.touched)) {
+                        <div class="alert alert-danger">
+                            @if (idtipPregunta.errors?.['required']) {
+                            <div>email es requerido</div>
+                            }@else if (idtipPregunta.errors?.['minlength']) {
+                            <div> el enunciado debe tener al menos 4 caracteres</div>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+
+
+                <div class="form-group row p-2">
+                    <div class="col-sm-6">
+                        <button class="btn btn-primary" role="button" (click)='createCuestionario()'>Crear</button>
+
+                    </div>
+                </div>
+            </form>
+            @if (errores.length>0) {
+            <ul class="alert alert-danger">
+                @for (err of errores; track $index) {
+                <li>{{err}}</li>
+                }
+            </ul>
+            }
+        </div>
+    </div>
+</div>
