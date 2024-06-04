@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2'
-import { DocenteDto } from '../../shared/dtos/docente/dtoRespuesta/docente.dto';
+import { DocenteDtoRespuesta } from '../../shared/dtos/docente/dtoRespuesta/docente.dto.respuesta';
 import { FormsModule } from '@angular/forms';
 import { DocenteService } from '../../core/services/docente/docente.service';
-import { DepartamentoDTO } from '../../shared/dtos/docente/dtoRespuesta/departamento.dto';
-import { TelefonoDTO } from '../../shared/dtos/docente/dtoRespuesta/telefono.dto';
+import { DepartamentoDTORespuesta } from '../../shared/dtos/docente/dtoRespuesta/departamento.dto.respuesta';
+import { TelefonoDTORespuesta } from '../../shared/dtos/docente/dtoRespuesta/telefono.dto.respuesta';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gestionar-docente',
@@ -14,22 +15,23 @@ import { TelefonoDTO } from '../../shared/dtos/docente/dtoRespuesta/telefono.dto
   styleUrl: './gestionar-docente.component.css'
 })
 export class GestionarDocenteComponent implements OnInit {
-  public docente: DocenteDto = new DocenteDto();
+  public docente: DocenteDtoRespuesta = new DocenteDtoRespuesta();
   public errores: string[] = [];
 
 
   ngOnInit(): void {
-    this.docente.departamentoEntities=[new DepartamentoDTO()];
-    this.docente.objTelefonoEntity=new TelefonoDTO();
+    this.docente.departamentoEntities=[new DepartamentoDTORespuesta()];
+    this.docente.objTelefonoEntity=new TelefonoDTORespuesta();
 
   }
-  constructor(private docenteService: DocenteService) { }
+  constructor(private docenteService: DocenteService,private router: Router) { }
 
   public crearDocente(): void {
     this.docenteService.postDocente(this.docente)
       .subscribe(
         respose => {
-          swal.fire('Nuevo cliente', `Cliente ${respose.nombres} creado con éxito!`, 'success');
+          this.router.navigate(['/']);
+          swal.fire('Nuevo Docente', `Docente ${respose.nombres} creado con éxito!`, 'success');
         },
         err => {
           this.errores = []; // Clear previous errors
